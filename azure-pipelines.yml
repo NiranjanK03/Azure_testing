@@ -25,7 +25,7 @@ steps:
     versionSpec: '3.6'
   displayName: 'Use Python 3.6'
 
-- script: |
+- script: 
     python -m pip install --upgrade pip
     pip install -r requirements.txt
   displayName: 'Install dependencies'
@@ -35,5 +35,6 @@ steps:
     pytest
   displayName: 'pytest'
 
-  script: python test1.py
+- script: |
+    python test1.py
   displayName: 'testing'
