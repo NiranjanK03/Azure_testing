@@ -1,50 +1,50 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 # !pip install azure-storage-blob
 # !pip install xlrd
 
 
-# In[ ]:
+# In[2]:
 
 
 # !pip install --upgrade pip --user
 
 
-# In[ ]:
+# In[3]:
 
 
 # !pip uninstall azure
 
 
-# In[ ]:
+# In[4]:
 
 
 # !pip uninstall azure-storage-file-share
 
 
-# In[ ]:
+# In[5]:
 
 
 # !pip install azure-storage-file-share --pre --user
 
 
-# In[ ]:
+# In[6]:
 
 
 # !pip freeze > requirements.txt
 
 
-# In[ ]:
+# In[7]:
 
 
 # !cat requirements.txt
 
 
-# In[ ]:
+# In[8]:
 
 
 import os, uuid
@@ -53,12 +53,14 @@ from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
 # from azure.identity import DefaultAzureCredential
 
 
-# In[ ]:
+# In[44]:
 
 
 connection_string  = 'DefaultEndpointsProtocol=https;AccountName=graybardata;AccountKey=V+zUSJhOAVNU62mk55jRtwWNucjJ7ndkLvMGg/t0sLPEr0P4w9y3GphpXJ/2O56jIyfwHa2o7e8PtAI0MRyCCw==;EndpointSuffix=core.windows.net'
 account_name = 'graybardata'
-access_key = 'V+zUSJhOAVNU62mk55jRtwWNucjJ7ndkLvMGg/t0sLPEr0P4w9y3GphpXJ/2O56jIyfwHa2o7e8PtAI0MRyCCw=='
+account_key = 'V+zUSJhOAVNU62mk55jRtwWNucjJ7ndkLvMGg/t0sLPEr0P4w9y3GphpXJ/2O56jIyfwHa2o7e8PtAI0MRyCCw=='
+container_name = 'csvfiles'
+blob_name = 'Schneider_one_to_many.xlsx'
 from azure.storage.blob import ContainerClient
 
 container = ContainerClient.from_connection_string(conn_str=connection_string, container_name="csvfiles")
@@ -68,7 +70,7 @@ for blob in blob_list:
     print(blob.name + '\n')
 
 
-# In[ ]:
+# In[10]:
 
 
 from azure.storage.blob import BlobClient
@@ -83,32 +85,47 @@ with open("./Schneider_one_to_many.xlsx", "wb") as my_blob:
 # df
 
 
-# In[ ]:
+# In[50]:
 
 
-import azure.storage.fileshare
-from azure.storage.fileshare import ShareServiceClient
-from datetime import datetime, timedelta
-share_service_client = ShareServiceClient.from_connection_string(connection_string)
+from azure.storage.blob import generate_blob_sas, AccountSasPermissions
 
-# Create a SAS token to use to authenticate a new client
-from azure.storage.fileshare import generate_account_sas, ResourceTypes, AccountSasPermissions
-
-sas_token = generate_account_sas(
-    account_name,
-    access_key,
-    resource_types=ResourceTypes(service=True),
+# def scan_product():
+url = f"https://{account_name}.blob.core.windows.net/{container_name}/{blob_name}"
+sas_token = generate_blob_sas(
+    account_name=account_name,
+    account_key=account_key,
+    container_name=container_name,
+    blob_name=blob_name,
     permission=AccountSasPermissions(read=True),
     expiry=datetime.utcnow() + timedelta(hours=1)
 )
 
+url_with_sas = f"{url}?{sas_token}"
+print(url_with_sas)
 
-# In[ ]:
+
+# In[43]:
+
+
+# from azure.storage.fileshare import generate_account_sas, ResourceTypes, AccountSasPermissions
+# sas_token = generate_account_sas(
+#     account_name,
+#     access_key,
+#     resource_types=ResourceTypes(service=True),
+#     permission=AccountSasPermissions(read=True),
+#     expiry=datetime.utcnow() + timedelta(hours=1)
+# )
+# print(sas_token)
+# sas_url = 'https://graybardata.blob.core.windows.net/csvfiles/Schneider_one_to_many.xlsx?' + sas_token
+
+
+# In[51]:
 
 
 import pandas as pd 
-source = str(sas_token)
-df = pd.read_excel(source)
+print(source)
+df = pd.read_excel(url_with_sas)
 print(df.head())
 
 
