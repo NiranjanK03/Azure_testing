@@ -4,14 +4,14 @@
 # In[ ]:
 
 
-get_ipython().system('pip install azure-storage-blob')
-get_ipython().system('pip install xlrd')
+# !pip install azure-storage-blob
+# !pip install xlrd
 
 
 # In[ ]:
 
 
-get_ipython().system('pip install --upgrade pip --user')
+# !pip install --upgrade pip --user
 
 
 # In[ ]:
