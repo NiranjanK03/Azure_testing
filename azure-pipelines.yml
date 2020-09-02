@@ -27,7 +27,12 @@ steps:
 
 - script: 
     python -m pip install --upgrade pip
-    # pip install -r requirements.txt
+    pip install azure-storage-blob
+    pip install xlrd 
+    pip install azure-storage-file-share --pre
+    pip install xlrd
+
+    #pip install -r requirements.txt
   displayName: 'Install dependencies'
 
 # - script: |
