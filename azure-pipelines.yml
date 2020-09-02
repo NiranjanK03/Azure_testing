@@ -31,6 +31,7 @@ steps:
     pip install xlrd 
     pip install azure-storage-file-share --pre
     pip install xlrd
+    pip install pandas
 
     #pip install -r requirements.txt
   displayName: 'Install dependencies'
