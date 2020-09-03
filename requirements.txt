@@ -1,6 +1,6 @@
 azure-core==1.8.0
 azure-storage-blob==12.4.0
 azure-storage-file-share==12.2.0
-pandas== 1.1.1
+pandas== 1.0.5
 xlrd==1.2.0
 
