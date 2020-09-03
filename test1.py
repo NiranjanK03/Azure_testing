@@ -61,7 +61,7 @@ sas_token = generate_blob_sas(
 # url_with_sas = f"{url}?{sas_token}"
 url_with_sas = url + '?' + str(sas_token)
 # print(url_with_sas)
-print(url_with_sas1)
+print(url_with_sas)
 
 
 # In[43]:
