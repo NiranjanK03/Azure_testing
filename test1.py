@@ -12,6 +12,12 @@ from datetime import datetime, timedelta
 import pandas as pd 
 
 
+# In[61]:
+
+
+pd.__version__
+
+
 # In[44]:
 
 
@@ -53,7 +59,7 @@ sas_token = generate_blob_sas(
 )
 
 # url_with_sas = f"{url}?{sas_token}"
-url_with_sas1 = url + '?' + str(sas_token)
+url_with_sas = url + '?' + str(sas_token)
 # print(url_with_sas)
 print(url_with_sas1)
 
