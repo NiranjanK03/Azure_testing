@@ -38,7 +38,7 @@ with open("./Schneider_one_to_many.xlsx", "wb") as my_blob:
     blob_data.readinto(my_blob)
 
 
-# In[56]:
+# In[57]:
 
 
 url = 'https://graybardata.blob.core.windows.net/csvfiles/Schneider_one_to_many.xlsx'
@@ -52,8 +52,10 @@ sas_token = generate_blob_sas(
     expiry=datetime.utcnow() + timedelta(hours=1)
 )
 
-url_with_sas = f"{url}?{sas_token}"
+# url_with_sas = f"{url}?{sas_token}"
+url_with_sas1 = url + '?' + str(sas_token)
 # print(url_with_sas)
+print(url_with_sas1)
 
 
 # In[43]:
