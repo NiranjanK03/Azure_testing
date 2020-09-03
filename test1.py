@@ -38,10 +38,11 @@ with open("./Schneider_one_to_many.xlsx", "wb") as my_blob:
     blob_data.readinto(my_blob)
 
 
-# In[50]:
+# In[55]:
 
 
-url = f"https://{account_name}.blob.core.windows.net/{container_name}/{blob_name}"
+url = f'https://{account_name}.blob.core.windows.net/{container_name}/{blob_name}'
+print(url)
 sas_token = generate_blob_sas(
     account_name=account_name,
     account_key=account_key,
@@ -52,7 +53,7 @@ sas_token = generate_blob_sas(
 )
 
 url_with_sas = f"{url}?{sas_token}"
-print(url_with_sas)
+# print(url_with_sas)
 
 
 # In[43]:
